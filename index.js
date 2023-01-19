@@ -1,23 +1,27 @@
-const API_URL = 'https://api.github.com***/repos/oleksandr-danylchenko/street-fighter/contents/resources/api/fighters.json';
+const API_URL =
+  "https://api.github.comrepos/oleksandr-danylchenko/street-fighter/contents/resourcesm/api/fighters.json";
 // const SECURITY_HEADERS = {
 //   headers: {
 //     authorization: "token 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"
 //   }
 // };
-const rootElement = document.getElementById('root');
-rootElement.innerText = 'Loading...';
+const rootElement = document.getElementById("root");
+rootElement.innerText = "Loading...";
 // const responsivePromise=fetch(API_URL, SECURITY_HEADERS)
 fetch(API_URL)
-.then(
-    response => response.json(),
-  )
-  .catch(error => {
+  .then((response) => {
+    if (!response.ok) {
+      return Promise.reject(Error("Failed load data"));
+    }
+    return response.json();
+  })
+  .catch((error) => {
     console.warn(error);
-    rootElement.innerText = 'Failed to load data';
+    rootElement.innerText = "Failed to load data";
   });
 //   .then(file => {
 //     const fighters = JSON.parse(atob(file.content));
 //     const names = fighters.map(it => it.name);
-//     const namesStr = names.join('\n'); 
+//     const namesStr = names.join('\n');
 //     rootElement.innerText = namesStr;
 //   });
